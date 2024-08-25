@@ -132,9 +132,7 @@ export default function Uuid() {
         <div className="flex flex-col">
             <select className="col-span-2 p-2 border border-gray-300 rounded mt-4" value={selectedUuidVerison} onChange={(e) => setSelectedUuidVersion(e.target.value)}>
                 {Object.entries(uuidVersions).map(([version, { description }]) => (
-                    <option key={version} value={version} selected={
-                        version === defaultVersion
-                    }>{version} - {description}</option>
+                    <option key={version} value={version}>{version} - {description}</option>
                 ))}
             </select>
             <button className="p-2 bg-indigo-500 text-white rounded mt-4" onClick={() => {

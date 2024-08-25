@@ -11,7 +11,12 @@ function bigIntPow(base: bigint, exp: number): bigint {
     return result;
 }
 
-const uuidVersions = {
+const uuidVersions: Record<string, {
+    description: string,
+    generator: () => string,
+    parts: (uuid: Uint8Array) => { label: string, description: string, value: string }[]
+}>
+= {
     'v1': {
         'description': 'Time-based',
         generator: v1,
@@ -21,7 +26,7 @@ const uuidVersions = {
     },
     'v3': {
         'description': 'Name-based (MD5)',
-        generator: v3,
+        generator: () => v3('hello', v3.DNS),
         parts(uuid: Uint8Array) {
             return [];
         }
@@ -35,7 +40,7 @@ const uuidVersions = {
     },
     'v5': {
         'description': 'Name-based (SHA-1)',
-        generator: v5,
+        generator: () => v5('hello', v5.DNS),
         parts(uuid: Uint8Array) {
             return [];
         }
@@ -75,12 +80,12 @@ const uuidVersions = {
                 {
                     label: 'Random A',
                     description: '12 bits, pseudo-random',
-                    value: rand_a,
+                    value: rand_a.toString(10),
                 },
                 {
                     label: 'Variant',
                     description: '2 bits, 0b10',
-                    value: variant,
+                    value: variant.toString(10),
                 },
                 {
                     label: 'Random B',

@@ -15,26 +15,37 @@ const uuidVersions = {
     'v1': {
         'description': 'Time-based',
         generator: v1,
+        parts(uuid: Uint8Array) {
+            return [];
+        }
     },
-    // 'v2': {
-    //     'description': 'DCE security',
-    //     generator: () => 
-    // },
     'v3': {
         'description': 'Name-based (MD5)',
         generator: v3,
+        parts(uuid: Uint8Array) {
+            return [];
+        }
     },
     'v4': {
         'description': 'Random',
         generator: v4,
+        parts(uuid: Uint8Array) {
+            return [];
+        }
     },
     'v5': {
         'description': 'Name-based (SHA-1)',
         generator: v5,
+        parts(uuid: Uint8Array) {
+            return [];
+        }
     },
     'v6': {
         description: 'Time-based, ordered',
         generator: v6,
+        parts(uuid: Uint8Array) {
+            return [];
+        }
     },
     'v7': {
         'description': 'Timestamp and random',
@@ -84,10 +95,13 @@ const uuidVersions = {
             ]
         }
     },
-    'v8': {
-        'description': 'Custom',
-        generator: () => '00000000-0000-8000-0000-000000000000',
-    },
+    // 'v8': {
+    //     'description': 'Custom',
+    //     generator: () => '00000000-0000-8000-0000-000000000000',
+    //     parts(uuid: Uint8Array) {
+    //         return [];
+    //     }
+    // },
 }
 
 const defaultVersion = 'v7';
@@ -96,6 +110,7 @@ export default function Uuid() {
 
     // uuid state
     const [uuid, setUuid] = useState('');
+    const [selectedUuidVerison, setSelectedUuidVersion] = useState(defaultVersion);
 
     // Detect the version of the uuid
     const uuidVersion = validate(uuid) ? version(uuid) : null;
@@ -110,7 +125,7 @@ export default function Uuid() {
             Or generate a new one
         </p>
         <div className="flex flex-col">
-            <select className="col-span-2 p-2 border border-gray-300 rounded mt-4">
+            <select className="col-span-2 p-2 border border-gray-300 rounded mt-4" value={selectedUuidVerison} onChange={(e) => setSelectedUuidVersion(e.target.value)}>
                 {Object.entries(uuidVersions).map(([version, { description }]) => (
                     <option key={version} value={version} selected={
                         version === defaultVersion
@@ -118,8 +133,7 @@ export default function Uuid() {
                 ))}
             </select>
             <button className="p-2 bg-indigo-500 text-white rounded mt-4" onClick={() => {
-                const version = defaultVersion;
-                const generator = uuidVersions[version].generator;
+                const generator = uuidVersions[selectedUuidVerison].generator;
                 setUuid(generator());
             }}>Generate</button>
         </div>

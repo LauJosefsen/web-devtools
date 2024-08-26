@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import React from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import NavLinks from "./ui/NavLinks";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -20,17 +18,28 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <div className="w-full flex flex-col sm:flex-row flex-grow overflow-hidden">
-          <div className="sm:w-1/3 md:1/4 w-full flex-shrink flex-grow-0 p-4">
-            <NavLinks/>
+      <body className="mx-auto flex flex-col min-h-screen bg-customBg px-4 py-4 text-white">
+        <header className="bg-customBg w-full mb-4">
+          <div className="container mx-auto px-4 py-3 bg-contentBg rounded-lg">
+            <div className="flex">
+              <div className="flex-grow flex flex-col">
+                <h1 className="text-xl font-bold">Devtools inc</h1>
+              </div>
+            </div>
           </div>
-          <main role="main" className="w-full h-full flex-grow p-3 overflow-auto">
-            {children}
-          </main>
+        </header>
+        <div className="container mx-auto flex-grow min-w-[320px]">
+          <div className="w-full flex flex-col sm:flex-row flex-grow overflow-hidden">
+            <aside className="flex-shrink-0 sm:pr-4 sm:min-w-[210px]">
+              <NavLinks />
+            </aside>
+            <main role="main" className="h-full w-full flex-grow px-6 py-4 overflow-auto rounded-lg bg-contentBg">
+              {children}
+            </main>
+          </div>
         </div>
-        <footer className="bg-indigo-800 mt-auto">
-          <div className="px-4 py-3 text-white mx-auto">
+        <footer className="bg-customBg mt-auto w-full pt-4">
+          <div className="container mx-auto px-4 py-3 bg-contentBg rounded-lg">
             <div className="flex">
               <div className="flex-grow flex flex-col">
                 <a href="https://github.com/LauJosefsen" className="text-xs uppercase tracking-wider">Github</a>

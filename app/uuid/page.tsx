@@ -121,41 +121,60 @@ export default function Uuid() {
     const uuidVersion = validate(uuid) ? version(uuid) : null;
 
     return <>
-        <h1 className="text-3xl md:text-5xl mb-4 font-extrabold" id="home">UUID</h1>
+        <h1 className="text-3xl md:text-5xl mb-4 font-extrabold text-white" id="home">UUID</h1>
 
-        <p>Paste UUID below</p>
-        <input type="text" className="w-full p-2 border border-gray-300 rounded" placeholder="Paste UUID here" value={uuid} onChange={(e) => setUuid(e.target.value)} />
+        <p className="mb-2">Paste UUID below</p>
+        <input
+            type="text"
+            className="w-full p-2 border border-gray-300 rounded mb-4"
+            placeholder="Paste UUID here"
+            value={uuid}
+            onChange={(e) => setUuid(e.target.value)}
+            aria-label="UUID input"
+        />
 
-        <p>
-            Or generate a new one
-        </p>
+        <p className="mb-2">Or generate a new one</p>
         <div className="flex flex-col">
-            <select className="col-span-2 p-2 border border-gray-300 rounded mt-4" value={selectedUuidVerison} onChange={(e) => setSelectedUuidVersion(e.target.value)}>
+            <label htmlFor="uuid-version-select" className="sr-only">Select UUID version</label>
+            <select
+                id="uuid-version-select"
+                className="col-span-2 p-2 border border-gray-300 rounded mt-4"
+                value={selectedUuidVerison}
+                onChange={(e) => setSelectedUuidVersion(e.target.value)}
+            >
                 {Object.entries(uuidVersions).map(([version, { description }]) => (
                     <option key={version} value={version}>{version} - {description}</option>
                 ))}
             </select>
-            <button className="p-2 bg-indigo-500 text-white rounded mt-4" onClick={() => {
-                const generator = uuidVersions[selectedUuidVerison].generator;
-                setUuid(generator());
-            }}>Generate</button>
+            <button
+                className="p-2 bg-indigo-500 text-white rounded mt-4"
+                onClick={() => {
+                    const generator = uuidVersions[selectedUuidVerison].generator;
+                    setUuid(generator());
+                }}
+            >
+                Generate
+            </button>
         </div>
 
-        <dl className="divide-y divide-gray-100">
 
-            {uuidVersion &&
-                <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                    <dt className="text-sm font-medium leading-6 text-gray-900">Version</dt>
-                    <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{uuidVersion}</dd>
-                </div>
-            }
-
-            {uuidVersion && uuidVersions[`v${uuidVersion}`].parts(parse(uuid)).map((part, i) => (
-                <div key={i} className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                    <dt className="text-sm font-medium leading-6 text-gray-900">{part.label}</dt>
-                    <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{part.value}</dd>
-                </div>
-            ))}
+        <dl className="divide-y divide-white-100 mt-6 text-white">
+            <div className="px-4 rounded-lg bg-contentBgLight">
+                {uuidVersion && (
+                    <>
+                        <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                            <dt className="text-sm font-bold leading-6">Version</dt>
+                            <dd className="mt-1 text-sm font-bold leading-6  sm:col-span-2 sm:mt-0">{uuidVersion}</dd>
+                        </div>
+                        {uuidVersions[`v${uuidVersion}`].parts(parse(uuid)).map((part, i) => (
+                            <div key={i} className="px-4 py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                <dt className="text-sm font-bold leading-6 ">{part.label}</dt>
+                                <dd className="mt-1 text-sm leading-6 sm:col-span-2 sm:mt-0">{part.value}</dd>
+                            </div>
+                        ))}
+                    </>
+                )}
+            </div>
         </dl>
 
 

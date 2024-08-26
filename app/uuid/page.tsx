@@ -144,7 +144,10 @@ export default function Uuid() {
         <div>
             {uuidVersion && <p>Version: {uuidVersion}</p>}
             {uuidVersion && uuidVersions[`v${uuidVersion}`].parts(parse(uuid)).map((part, i) => (
-                <p key={i}>{part.label}: {part.value}</p>
+                <fieldset key={i}>
+                    <legend>{part.label}</legend>
+                    <p className="font-mono">{part.value}</p>
+                </fieldset>
             ))}
         </div>
 

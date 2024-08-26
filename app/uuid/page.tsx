@@ -141,7 +141,7 @@ export default function Uuid() {
             }}>Generate</button>
         </div>
 
-        <dl class="divide-y divide-gray-100">
+        <dl className="divide-y divide-gray-100">
 
             {uuidVersion &&
                 <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">

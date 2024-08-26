@@ -1,6 +1,6 @@
 'use client'
 
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { parse, v1, v3, v4, v5, v6, v7, validate, version } from 'uuid';
 
 function bigIntPow(base: bigint, exp: number): bigint {
@@ -16,7 +16,7 @@ const uuidVersions: Record<string, {
     generator: () => string,
     parts: (uuid: Uint8Array) => { label: string, description: string, value: string }[]
 }>
-= {
+    = {
     'v1': {
         'description': 'Time-based',
         generator: v1,
@@ -141,15 +141,23 @@ export default function Uuid() {
             }}>Generate</button>
         </div>
 
-        <div>
-            {uuidVersion && <p>Version: {uuidVersion}</p>}
+        <dl class="divide-y divide-gray-100">
+
+            {uuidVersion &&
+                <div key={i} class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                    <dt class="text-sm font-medium leading-6 text-gray-900">Version</dt>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{uuidVersion}</dd>
+                </div>
+            }
+
             {uuidVersion && uuidVersions[`v${uuidVersion}`].parts(parse(uuid)).map((part, i) => (
-                <fieldset key={i}>
-                    <legend>{part.label}</legend>
-                    <p className="font-mono">{part.value}</p>
-                </fieldset>
+                <div key={i} class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                    <dt class="text-sm font-medium leading-6 text-gray-900">{part.label}</dt>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{part.value}</dd>
+                </div>
             ))}
-        </div>
+        </dl>
+
 
 
 

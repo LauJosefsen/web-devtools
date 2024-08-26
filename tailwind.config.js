@@ -8,7 +8,16 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ['Raleway', 'sans-serif'],
+      },
+      colors: {
+        customBg: '#141923',
+        contentBg: '#232c3d',
+        contentBgLight: '#334059',
+      },
+    },
   },
   plugins: [daisyui],
 }

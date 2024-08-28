@@ -18,12 +18,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <title>WebToolbox</title>
+        <link rel="icon" href="/icon.webp" />
+      </head>
       <body className="mx-auto flex flex-col min-h-screen bg-customBg px-4 py-4 text-white">
         <header className="bg-customBg w-full mb-4">
           <div className="container mx-auto px-4 py-3 bg-contentBg rounded-lg">
             <div className="flex">
               <div className="flex-grow flex flex-col">
-                <h1 className="text-xl font-bold">Devtools inc</h1>
+                <h1 className="text-xl font-bold">
+                  {/* Inline icon.webp */}
+                  <img src="/icon.webp" className="w-8 inline mr-5" alt="WebToolbox icon" />
+                  Devtools inc</h1>
               </div>
             </div>
           </div>

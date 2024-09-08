@@ -29,7 +29,9 @@ export default function Uuid() {
             onValueChange={code => 
                 {
                     setJson(code);
-                    setPhpArray(printer(JSON.parse(code)));
+                    try{
+                        setPhpArray(printer(JSON.parse(code)));
+                    } catch (_) { }
                 }
             }
             highlight={code => highlight(code, languages.json, 'json')}
@@ -48,9 +50,9 @@ export default function Uuid() {
             onValueChange={code => 
                 {
                     setPhpArray(code);
-                    console.log(fromString(code))
-                    console.log(JSON.stringify(fromString(code)));
-                    setJson(JSON.stringify(fromString(code), null, 4));
+                    try {
+                        setJson(JSON.stringify(fromString(code), null, 4));
+                    } catch (_) {}
                 }
             }
             highlight={code => highlight(code, languages.php, 'php')}

@@ -15,9 +15,8 @@ import 'prismjs/themes/prism-dark.css'; //Example style, you can use another
 export default function Uuid() {
 
     const printer = json2php.make({linebreak:'\n', indent:'\t', shortArraySyntax: true})
-    const [json, setJson] = useState(JSON.stringify({"hello": "world"}, null, 4)
-    );
-    const [phpArray, setPhpArray] = useState(printer(JSON.parse(json)));
+    const [json, setJson] = useState(JSON.stringify({"hello": "world"}, null, 4));
+    const [phpArray, setPhpArray] = useState('[\n    \'hello\' => \'world\'\n]');
 
     return <>
         <h1 className="text-3xl md:text-5xl mb-4 font-extrabold text-white" id="home">JSON to/from PHP conversions</h1>

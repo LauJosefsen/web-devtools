@@ -15,13 +15,16 @@ import 'prismjs/themes/prism-dark.css'; //Example style, you can use another
 export default function Uuid() {
 
     const printer = json2php.make({linebreak:'\n', indent:'\t', shortArraySyntax: true})
-    const [json, setJson] = useState('');
-    const [phpArray, setPhpArray] = useState('');
+    const [json, setJson] = useState(JSON.stringify({"hello": "world"}, null, 4)
+    );
+    const [phpArray, setPhpArray] = useState(printer(JSON.parse(json)));
 
     return <>
         <h1 className="text-3xl md:text-5xl mb-4 font-extrabold text-white" id="home">JSON to/from PHP conversions</h1>
         {/* TextArea */}
+        <h2 className="text-2xl md:text-4xl mb-4 font-extrabold text-white">JSON</h2>
         <Editor
+            className="bg-gray-700"
             value={json}            
             onValueChange={code => 
                 {
@@ -37,7 +40,10 @@ export default function Uuid() {
             }}
         />
 
+        <h2 className="text-2xl md:text-4xl mb-4 font-extrabold text-white">PHP Array</h2>
+
         <Editor
+            className="bg-gray-700"
             value={phpArray}
             onValueChange={code => 
                 {
